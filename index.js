@@ -26,6 +26,7 @@ const client = new MongoClient(url, {
     //   await client.connect();
   
       const reviewsCollection = client.db("CreativeCampus").collection("Reviews");
+      const teamCollection = client.db("CreativeCampus").collection("TeamMember");
   
   
 
@@ -42,6 +43,12 @@ const client = new MongoClient(url, {
         const result = await reviewsCollection.insertOne(newReview);
         res.send(result);
       })
+
+    //   Team Members api
+    app.get('/members', async (req, res) => {
+        const result = await teamCollection.find().toArray();
+        res.send(result);
+    })
   
   
       await client.db("admin").command({ ping: 1 });
